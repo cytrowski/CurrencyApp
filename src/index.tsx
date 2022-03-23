@@ -2,9 +2,14 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import CssBaseline from '@mui/material/CssBaseline';
+import { Global } from '@emotion/react';
+import { GlobalStyle } from './styles/theme/global.css';
 
 ReactDOM.render(
   <React.StrictMode>
+    <CssBaseline />
+    <Global styles={GlobalStyle} />
     <App />
   </React.StrictMode>,
   document.getElementById('root')
