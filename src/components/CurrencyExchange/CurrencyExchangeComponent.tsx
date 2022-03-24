@@ -7,10 +7,6 @@ import {
   CurrencyFromComponentProps
 } from './CurrencyForm/CurrencyFormComponent';
 import {
-  CurrencyHeaderComponent,
-  CurrencyHeaderComponentProps
-} from './CurrencyHeader/CurrencyHeaderComponent';
-import {
   CurrencyInputComponent,
   CurrencyInputComponentProps
 } from './CurrencyInput/CurrencyInputComponent';
@@ -20,25 +16,22 @@ type CurrencyExchangeComponentProps = {
   onSecondCurrencyChange: (value: number) => void;
   currencyFirstSignature: string;
   currencySecondSignature: string;
+  exchangePLNtoForeign: number;
+  exchangeForeignToPLN: number;
 };
 
 export const CurrencyExchangeComponent: FC<
-  CurrencyExchangeComponentProps &
-    CurrencyFromComponentProps &
-    CurrencyHeaderComponentProps &
-    Partial<CurrencyInputComponentProps>
+  CurrencyExchangeComponentProps & CurrencyFromComponentProps & Partial<CurrencyInputComponentProps>
 > = ({
-  firstCurrency,
-  secondCurrency,
   onFirstCurrencyChange,
   onSecondCurrencyChange,
   isColumn,
   currencyFirstSignature,
   currencySecondSignature,
-  componentAlignCenter
+  exchangePLNtoForeign,
+  exchangeForeignToPLN
 }: CurrencyExchangeComponentProps &
   Partial<CurrencyFromComponentProps> &
-  CurrencyHeaderComponentProps &
   Partial<CurrencyInputComponentProps>): JSX.Element => {
   const { CurrencyExchangeHeading } = ENTranslations;
 
@@ -46,21 +39,17 @@ export const CurrencyExchangeComponent: FC<
     <Box>
       <CurrencyFromComponent>
         <Typography variant='h4'>{CurrencyExchangeHeading}</Typography>
-        <CurrencyHeaderComponent
-          firstCurrency={firstCurrency}
-          secondCurrency={secondCurrency}
-          textAlign='left'
-          componentAlignCenter={componentAlignCenter}
-        />
         <CurrencyInputComponent
           currencyDescription={currencyFirstSignature}
           isColumn={isColumn}
           onChange={onFirstCurrencyChange}
+          valueCalculated={exchangePLNtoForeign}
         />
         <CurrencyInputComponent
           currencyDescription={currencySecondSignature}
           isColumn={isColumn}
           onChange={onSecondCurrencyChange}
+          valueCalculated={exchangeForeignToPLN}
         />
       </CurrencyFromComponent>
     </Box>

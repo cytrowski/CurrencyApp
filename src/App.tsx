@@ -7,22 +7,36 @@ import useAxiosClient, { RequestMethod } from './hooks/useAxiosClient';
 import { CurrencyCode, currencyFromToDates } from './helpers/exchangeCurrency';
 
 const App: FC = (): JSX.Element => {
-  const [firstCurrency, setFirstCurrency] = useState<number>(0);
-  const [secondCurrency, setSecondCurrency] = useState<number>(0);
-  // const [exchange, setExchange] = useState<number>(0); TODO Add business logic
+  const [firstCurrencyInput, setFirstCurrencyInput] = useState<number>(0);
+  const [secondCurrencyInput, setSecondCurrencyInput] = useState<number>(0);
+  const [exchangePLNtoForeign, setExchangePLNtoForeign] = useState<number>(0);
+  const [exchangeForeignToPLN, setExchangeForeignToPLN] = useState<number>(0);
   const { mainHeading, CurrencyFirst, CurrencySecond } = ENTranslations;
   const baseUrlUSD: string = currencyFromToDates(CurrencyCode.USD);
   const [USD, ErrorFetchUSD, isLoadingUSD] = useAxiosClient({
     baseUrl: baseUrlUSD,
     requestMethod: RequestMethod.GET
   });
+  const fetchedUSD = USD?.data.rates[0].ask;
+
+  useEffect(() => {
+    if (!isLoadingUSD && firstCurrencyInput) {
+      setExchangePLNtoForeign(firstCurrencyInput * fetchedUSD);
+    }
+  }, [firstCurrencyInput, isLoadingUSD, fetchedUSD]);
+
+  useEffect(() => {
+    if (!isLoadingUSD && secondCurrencyInput) {
+      setExchangeForeignToPLN(secondCurrencyInput / fetchedUSD);
+    }
+  }, [isLoadingUSD, secondCurrencyInput, fetchedUSD]);
 
   const onFirstCurrencyChange = (value: number): void => {
-    setFirstCurrency(value);
+    setSecondCurrencyInput(Math.round(value * 100) / 100);
   };
 
   const onSecondCurrencyChange = (value: number): void => {
-    setSecondCurrency(value);
+    setFirstCurrencyInput(Math.round(value * 100) / 100);
   };
 
   return (
@@ -39,11 +53,18 @@ const App: FC = (): JSX.Element => {
           <CurrencyExchangeComponent
             onSecondCurrencyChange={onSecondCurrencyChange}
             onFirstCurrencyChange={onFirstCurrencyChange}
-            firstCurrency={firstCurrency}
-            secondCurrency={secondCurrency}
             currencyFirstSignature={CurrencyFirst}
             currencySecondSignature={CurrencySecond}
+            exchangeForeignToPLN={exchangeForeignToPLN}
+            exchangePLNtoForeign={exchangePLNtoForeign}
           />
+        </Grid>
+        <Grid item xs={12}>
+          <Box>
+            <Typography variant='h1' textAlign='center'>
+              {ErrorFetchUSD && ErrorFetchUSD}
+            </Typography>
+          </Box>
         </Grid>
       </Grid>
     </Container>
