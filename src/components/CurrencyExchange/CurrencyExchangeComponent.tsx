@@ -18,8 +18,8 @@ import {
 type CurrencyExchangeComponentProps = {
   onFirstCurrencyChange: (value: number) => void;
   onSecondCurrencyChange: (value: number) => void;
-  currencyFirst: string;
-  currencySecond: string;
+  currencyFirstSignature: string;
+  currencySecondSignature: string;
 };
 
 export const CurrencyExchangeComponent: FC<
@@ -33,8 +33,8 @@ export const CurrencyExchangeComponent: FC<
   onFirstCurrencyChange,
   onSecondCurrencyChange,
   isColumn,
-  currencyFirst,
-  currencySecond,
+  currencyFirstSignature,
+  currencySecondSignature,
   componentAlignCenter
 }: CurrencyExchangeComponentProps &
   Partial<CurrencyFromComponentProps> &
@@ -53,12 +53,12 @@ export const CurrencyExchangeComponent: FC<
           componentAlignCenter={componentAlignCenter}
         />
         <CurrencyInputComponent
-          currencyDescription={currencyFirst}
+          currencyDescription={currencyFirstSignature}
           isColumn={isColumn}
           onChange={onFirstCurrencyChange}
         />
         <CurrencyInputComponent
-          currencyDescription={currencySecond}
+          currencyDescription={currencySecondSignature}
           isColumn={isColumn}
           onChange={onSecondCurrencyChange}
         />

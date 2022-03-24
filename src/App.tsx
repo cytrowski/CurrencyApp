@@ -12,13 +12,8 @@ const App: FC = (): JSX.Element => {
   // const [exchange, setExchange] = useState<number>(0); TODO Add business logic
   const { mainHeading, CurrencyFirst, CurrencySecond } = ENTranslations;
   const baseUrlUSD: string = currencyFromToDates(CurrencyCode.USD);
-  const baseUrlEURO: string = currencyFromToDates(CurrencyCode.EURO);
   const [USD, ErrorFetchUSD, isLoadingUSD] = useAxiosClient({
     baseUrl: baseUrlUSD,
-    requestMethod: RequestMethod.GET
-  });
-  const [EURO, ErrorFetchEURO, isLoadingEURO] = useAxiosClient({
-    baseUrl: baseUrlEURO,
     requestMethod: RequestMethod.GET
   });
 
@@ -46,8 +41,8 @@ const App: FC = (): JSX.Element => {
             onFirstCurrencyChange={onFirstCurrencyChange}
             firstCurrency={firstCurrency}
             secondCurrency={secondCurrency}
-            currencyFirst={CurrencyFirst}
-            currencySecond={CurrencySecond}
+            currencyFirstSignature={CurrencyFirst}
+            currencySecondSignature={CurrencySecond}
           />
         </Grid>
       </Grid>

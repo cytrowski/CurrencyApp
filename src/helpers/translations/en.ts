@@ -1,7 +1,7 @@
 const ENTranslations = {
   mainHeading: 'Currency app',
   CurrencyFirst: 'Polish zloty',
-  CurrencySecond: 'Euro',
+  CurrencySecond: 'USD',
   CurrencyLabel: 'Currency value',
   CurrencyEquals: 'Equals',
   CurrencyExchangeHeading: 'Currency Exchange'
