@@ -1,14 +1,26 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { Container, Grid, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import { CurrencyExchangeComponent } from './components/CurrencyExchange/CurrencyExchangeComponent';
 import ENTranslations from './helpers/translations/en';
+import useAxiosClient, { RequestMethod } from './hooks/useAxiosClient';
+import { CurrencyCode, currencyFromToDates } from './helpers/exchangeCurrency';
 
 const App: FC = (): JSX.Element => {
   const [firstCurrency, setFirstCurrency] = useState<number>(0);
   const [secondCurrency, setSecondCurrency] = useState<number>(0);
   // const [exchange, setExchange] = useState<number>(0); TODO Add business logic
   const { mainHeading, CurrencyFirst, CurrencySecond } = ENTranslations;
+  const baseUrlUSD: string = currencyFromToDates(CurrencyCode.USD);
+  const baseUrlEURO: string = currencyFromToDates(CurrencyCode.EURO);
+  const [USD, ErrorFetchUSD, isLoadingUSD] = useAxiosClient({
+    baseUrl: baseUrlUSD,
+    requestMethod: RequestMethod.GET
+  });
+  const [EURO, ErrorFetchEURO, isLoadingEURO] = useAxiosClient({
+    baseUrl: baseUrlEURO,
+    requestMethod: RequestMethod.GET
+  });
 
   const onFirstCurrencyChange = (value: number): void => {
     setFirstCurrency(value);
