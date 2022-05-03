@@ -5,12 +5,15 @@ import reportWebVitals from './reportWebVitals';
 import CssBaseline from '@mui/material/CssBaseline';
 import { Global } from '@emotion/react';
 import { GlobalStyle } from './styles/theme/global.css';
+import { ExchangeRatesProvider } from './contexts/ExchangeRates';
 
 ReactDOM.render(
   <React.StrictMode>
     <CssBaseline />
     <Global styles={GlobalStyle} />
-    <App />
+    <ExchangeRatesProvider>
+      <App />
+    </ExchangeRatesProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );

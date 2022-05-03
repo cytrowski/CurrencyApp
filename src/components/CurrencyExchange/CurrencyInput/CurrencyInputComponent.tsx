@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FC, useEffect, useState } from 'react';
+import { ChangeEvent, FC, useEffect, useState } from 'react';
 import { TextField, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import ENTranslations from '../../../helpers/translations/en';

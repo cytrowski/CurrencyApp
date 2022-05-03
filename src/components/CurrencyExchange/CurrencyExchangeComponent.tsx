@@ -1,6 +1,6 @@
 import { Typography } from '@mui/material';
 import { Box } from '@mui/system';
-import React, { FC } from 'react';
+import { FC } from 'react';
 import ENTranslations from '../../helpers/translations/en';
 import {
   CurrencyFromComponent,

@@ -1,23 +1,18 @@
-import React, { FC, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Container, Grid, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import { CurrencyExchangeComponent } from './components/CurrencyExchange/CurrencyExchangeComponent';
 import ENTranslations from './helpers/translations/en';
-import useAxiosClient, { RequestMethod } from './hooks/useAxiosClient';
-import { CurrencyCode, currencyFromToDates } from './helpers/exchangeCurrency';
+import { useExchangeRates } from './contexts/ExchangeRates';
 
-const App: FC = (): JSX.Element => {
-  const [firstCurrencyInput, setFirstCurrencyInput] = useState<number>(0);
-  const [secondCurrencyInput, setSecondCurrencyInput] = useState<number>(0);
-  const [exchangePLNtoForeign, setExchangePLNtoForeign] = useState<number>(0);
-  const [exchangeForeignToPLN, setExchangeForeignToPLN] = useState<number>(0);
+const App = () => {
+  const [firstCurrencyInput, setFirstCurrencyInput] = useState(0);
+  const [secondCurrencyInput, setSecondCurrencyInput] = useState(0);
+  const [exchangePLNtoForeign, setExchangePLNtoForeign] = useState(0);
+  const [exchangeForeignToPLN, setExchangeForeignToPLN] = useState(0);
   const { mainHeading, CurrencyFirst, CurrencySecond } = ENTranslations;
-  const baseUrlUSD: string = currencyFromToDates(CurrencyCode.USD);
-  const [USD, ErrorFetchUSD, isLoadingUSD] = useAxiosClient({
-    baseUrl: baseUrlUSD,
-    requestMethod: RequestMethod.GET
-  });
-  const fetchedUSD = USD?.data.rates[0].ask;
+
+  const { isLoadingUSD, fetchedUSD, errorFetchUSD } = useExchangeRates();
 
   useEffect(() => {
     if (!isLoadingUSD && firstCurrencyInput) {
@@ -62,7 +57,7 @@ const App: FC = (): JSX.Element => {
         <Grid item xs={12}>
           <Box>
             <Typography variant='h1' textAlign='center'>
-              {ErrorFetchUSD && ErrorFetchUSD}
+              {errorFetchUSD}
             </Typography>
           </Box>
         </Grid>
