@@ -15,16 +15,19 @@ export const CurrencyInputComponent = ({
   currencyDescription,
   valueCalculated
 }: CurrencyInputComponentProps) => {
-  const [val, setVal] = useState<number>();
+  const [val, setVal] = useState<string>('');
   const { CurrencyLabel } = ENTranslations;
+
   const handleChange = (event: ChangeEvent<HTMLInputElement>): void => {
-    const value = Number.parseInt(event.target.value);
-    if (onChange) onChange(value);
+    const value = event.target.value;
+    if (onChange) {
+      onChange(Number(value));
+    }
     setVal(value);
   };
 
   useEffect(() => {
-    setVal(valueCalculated);
+    setVal(String(valueCalculated));
   }, [valueCalculated]);
 
   return (
@@ -33,7 +36,6 @@ export const CurrencyInputComponent = ({
         id='outlined-basic'
         label={CurrencyLabel}
         variant='standard'
-        type='number'
         onChange={handleChange}
         value={val}
       />
