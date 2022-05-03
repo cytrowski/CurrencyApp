@@ -1,15 +1,8 @@
 import { Typography } from '@mui/material';
 import { Box } from '@mui/system';
-import { FC } from 'react';
 import ENTranslations from '../../helpers/translations/en';
-import {
-  CurrencyFromComponent,
-  CurrencyFromComponentProps
-} from './CurrencyForm/CurrencyFormComponent';
-import {
-  CurrencyInputComponent,
-  CurrencyInputComponentProps
-} from './CurrencyInput/CurrencyInputComponent';
+import { CurrencyFromComponent } from './CurrencyForm/CurrencyFormComponent';
+import { CurrencyInputComponent } from './CurrencyInput/CurrencyInputComponent';
 
 type CurrencyExchangeComponentProps = {
   onFirstCurrencyChange: (value: number) => void;
@@ -20,19 +13,14 @@ type CurrencyExchangeComponentProps = {
   exchangeForeignToPLN: number;
 };
 
-export const CurrencyExchangeComponent: FC<
-  CurrencyExchangeComponentProps & CurrencyFromComponentProps & Partial<CurrencyInputComponentProps>
-> = ({
+export const CurrencyExchangeComponent = ({
   onFirstCurrencyChange,
   onSecondCurrencyChange,
-  isColumn,
   currencyFirstSignature,
   currencySecondSignature,
   exchangePLNtoForeign,
   exchangeForeignToPLN
-}: CurrencyExchangeComponentProps &
-  Partial<CurrencyFromComponentProps> &
-  Partial<CurrencyInputComponentProps>): JSX.Element => {
+}: CurrencyExchangeComponentProps) => {
   const { CurrencyExchangeHeading } = ENTranslations;
 
   return (
@@ -41,13 +29,11 @@ export const CurrencyExchangeComponent: FC<
         <Typography variant='h4'>{CurrencyExchangeHeading}</Typography>
         <CurrencyInputComponent
           currencyDescription={currencyFirstSignature}
-          isColumn={isColumn}
           onChange={onFirstCurrencyChange}
           valueCalculated={exchangePLNtoForeign}
         />
         <CurrencyInputComponent
           currencyDescription={currencySecondSignature}
-          isColumn={isColumn}
           onChange={onSecondCurrencyChange}
           valueCalculated={exchangeForeignToPLN}
         />

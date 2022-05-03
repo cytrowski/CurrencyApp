@@ -1,13 +1,11 @@
-import { FC, ReactNode } from 'react';
+import { ReactNode } from 'react';
 import { Box } from '@mui/system';
 
 export type CurrencyFromComponentProps = {
   children?: ReactNode;
 };
 
-export const CurrencyFromComponent: FC<CurrencyFromComponentProps> = ({
-  children
-}: CurrencyFromComponentProps): JSX.Element => {
+export const CurrencyFromComponent = ({ children }: CurrencyFromComponentProps) => {
   return (
     <Box
       component='form'

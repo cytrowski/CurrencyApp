@@ -1,4 +1,4 @@
-import { ChangeEvent, FC, useEffect, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 import { TextField, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import ENTranslations from '../../../helpers/translations/en';
@@ -10,12 +10,11 @@ export type CurrencyInputComponentProps = {
   valueCalculated: number;
 };
 
-export const CurrencyInputComponent: FC<CurrencyInputComponentProps> = ({
-  isColumn,
+export const CurrencyInputComponent = ({
   onChange,
   currencyDescription,
   valueCalculated
-}: CurrencyInputComponentProps): JSX.Element => {
+}: CurrencyInputComponentProps) => {
   const [val, setVal] = useState<number>();
   const { CurrencyLabel } = ENTranslations;
   const handleChange = (event: ChangeEvent<HTMLInputElement>): void => {
@@ -29,7 +28,7 @@ export const CurrencyInputComponent: FC<CurrencyInputComponentProps> = ({
   }, [valueCalculated]);
 
   return (
-    <Box sx={{ display: 'flex', flexDirection: isColumn ? 'column' : 'row', alignItems: 'center' }}>
+    <Box sx={{ display: 'flex', alignItems: 'center' }}>
       <TextField
         id='outlined-basic'
         label={CurrencyLabel}
