@@ -20,11 +20,11 @@ export const CurrencyExchange = ({ rate = 1 }: Props) => {
   const exchangeForeignToPLN = secondCurrencyInput / rate;
 
   const onFirstCurrencyChange = (value: number): void => {
-    setSecondCurrencyInput(Math.round(value * 100) / 100);
+    setSecondCurrencyInput(value);
   };
 
   const onSecondCurrencyChange = (value: number): void => {
-    setFirstCurrencyInput(Math.round(value * 100) / 100);
+    setFirstCurrencyInput(value);
   };
 
   return (
