@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react';
 import { Container, Grid, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import { CurrencyExchange } from './components/CurrencyExchange/CurrencyExchange';
@@ -6,33 +5,8 @@ import ENTranslations from './helpers/translations/en';
 import { useExchangeRates } from './contexts/ExchangeRates';
 
 const App = () => {
-  const [firstCurrencyInput, setFirstCurrencyInput] = useState(0);
-  const [secondCurrencyInput, setSecondCurrencyInput] = useState(0);
-  const [exchangePLNtoForeign, setExchangePLNtoForeign] = useState(0);
-  const [exchangeForeignToPLN, setExchangeForeignToPLN] = useState(0);
-  const { mainHeading, CurrencyFirst, CurrencySecond } = ENTranslations;
-
-  const { isLoadingUSD, fetchedUSD, errorFetchUSD } = useExchangeRates();
-
-  useEffect(() => {
-    if (!isLoadingUSD && firstCurrencyInput) {
-      setExchangePLNtoForeign(firstCurrencyInput * fetchedUSD);
-    }
-  }, [firstCurrencyInput, isLoadingUSD, fetchedUSD]);
-
-  useEffect(() => {
-    if (!isLoadingUSD && secondCurrencyInput) {
-      setExchangeForeignToPLN(secondCurrencyInput / fetchedUSD);
-    }
-  }, [isLoadingUSD, secondCurrencyInput, fetchedUSD]);
-
-  const onFirstCurrencyChange = (value: number): void => {
-    setSecondCurrencyInput(Math.round(value * 100) / 100);
-  };
-
-  const onSecondCurrencyChange = (value: number): void => {
-    setFirstCurrencyInput(Math.round(value * 100) / 100);
-  };
+  const { mainHeading } = ENTranslations;
+  const { fetchedUSD, isLoadingUSD, errorFetchUSD } = useExchangeRates();
 
   return (
     <Container maxWidth='xl'>
@@ -44,15 +18,15 @@ const App = () => {
             </Typography>
           </Box>
         </Grid>
-        <Grid item xs={12}>
-          <CurrencyExchange
-            onSecondCurrencyChange={onSecondCurrencyChange}
-            onFirstCurrencyChange={onFirstCurrencyChange}
-            currencyFirstSignature={CurrencyFirst}
-            currencySecondSignature={CurrencySecond}
-            exchangeForeignToPLN={exchangeForeignToPLN}
-            exchangePLNtoForeign={exchangePLNtoForeign}
-          />
+        <Grid
+          item
+          xs={12}
+          sx={{
+            opacity: isLoadingUSD ? 0.5 : undefined,
+            pointerEvents: isLoadingUSD ? 'none' : undefined
+          }}
+        >
+          <CurrencyExchange rate={fetchedUSD} />
         </Grid>
         <Grid item xs={12}>
           <Box>
