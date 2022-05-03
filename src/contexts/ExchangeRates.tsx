@@ -4,7 +4,7 @@ import useAxiosClient, { RequestMethod } from '../hooks/useAxiosClient';
 import { CurrencyCode, currencyFromToDates } from '../helpers/exchangeCurrency';
 
 interface ContextValue {
-  fetchedUSD: number;
+  fetchedUSD?: number;
   isLoadingUSD: boolean;
   errorFetchUSD?: string;
 }
@@ -22,7 +22,7 @@ export const ExchangeRatesProvider = ({ children }: Props) => {
     requestMethod: RequestMethod.GET
   });
 
-  const fetchedUSD = USD?.data.rates[0].ask;
+  const fetchedUSD: number | undefined = USD?.data.rates[0].ask;
 
   const value = {
     fetchedUSD,

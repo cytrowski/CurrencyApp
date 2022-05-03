@@ -15,12 +15,14 @@ export const CurrencyInput = ({ onChange, currencyDescription, valueCalculated }
   const handleChange = useCallback((event: ChangeEvent<HTMLInputElement>): void => {
     const value = event.target.value;
 
-    setFormatError(Number(value).toString() !== value);
+    setVal(value);
 
-    if (onChange) {
+    const isFormatCorrect = Number(value).toString() === value;
+    setFormatError(!isFormatCorrect);
+
+    if (onChange && isFormatCorrect) {
       onChange(Number(value));
     }
-    setVal(value);
   }, []);
 
   useEffect(() => {
