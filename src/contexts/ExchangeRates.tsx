@@ -1,7 +1,5 @@
 import { createContext, ReactNode, useContext } from 'react';
-
-import useAxiosClient, { RequestMethod } from '../hooks/useAxiosClient';
-import { CurrencyCode, currencyFromToDates } from '../helpers/exchangeCurrency';
+import { useQueryExchangeRates } from '../hooks/useQueryExchangeRates';
 
 interface ContextValue {
   fetchedUSD?: number;
@@ -16,18 +14,14 @@ interface Props {
 }
 
 export const ExchangeRatesProvider = ({ children }: Props) => {
-  const baseUrlUSD: string = currencyFromToDates(CurrencyCode.USD);
-  const [USD, errorFetchUSD, isLoadingUSD] = useAxiosClient({
-    baseUrl: baseUrlUSD,
-    requestMethod: RequestMethod.GET
-  });
+  const { rate, isLoading, error } = useQueryExchangeRates('usd');
 
-  const fetchedUSD: number | undefined = USD?.data.rates[0].ask;
+  const fetchedUSD: number | undefined = rate;
 
   const value = {
     fetchedUSD,
-    isLoadingUSD,
-    errorFetchUSD
+    isLoadingUSD: isLoading,
+    errorFetchUSD: error ? 'Problem fetching rates' : undefined
   };
 
   return <Context.Provider value={value}>{children}</Context.Provider>;

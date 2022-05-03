@@ -26,6 +26,7 @@ export const CurrencyInput = ({ onChange, currencyDescription, valueCalculated }
   }, []);
 
   useEffect(() => {
+    setFormatError(false);
     setVal(String(valueCalculated));
   }, [valueCalculated]);
 
