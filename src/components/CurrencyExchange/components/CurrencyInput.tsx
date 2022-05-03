@@ -3,18 +3,14 @@ import { TextField, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import ENTranslations from '../../../helpers/translations/en';
 
-export type CurrencyInputComponentProps = {
+interface Props {
   currencyDescription: string;
   isColumn?: boolean;
   onChange?: (value: number) => void;
   valueCalculated: number;
-};
+}
 
-export const CurrencyInputComponent = ({
-  onChange,
-  currencyDescription,
-  valueCalculated
-}: CurrencyInputComponentProps) => {
+export const CurrencyInput = ({ onChange, currencyDescription, valueCalculated }: Props) => {
   const [val, setVal] = useState<string>('');
   const { CurrencyLabel } = ENTranslations;
 

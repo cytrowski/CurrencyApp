@@ -1,11 +1,11 @@
 import { ReactNode } from 'react';
 import { Box } from '@mui/system';
 
-export type CurrencyFromComponentProps = {
+interface Props {
   children?: ReactNode;
-};
+}
 
-export const CurrencyFromComponent = ({ children }: CurrencyFromComponentProps) => {
+export const CurrencyFrom = ({ children }: Props) => {
   return (
     <Box
       component='form'

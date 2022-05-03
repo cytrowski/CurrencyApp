@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Container, Grid, Typography } from '@mui/material';
 import { Box } from '@mui/system';
-import { CurrencyExchangeComponent } from './components/CurrencyExchange/CurrencyExchangeComponent';
+import { CurrencyExchange } from './components/CurrencyExchange/CurrencyExchange';
 import ENTranslations from './helpers/translations/en';
 import { useExchangeRates } from './contexts/ExchangeRates';
 
@@ -45,7 +45,7 @@ const App = () => {
           </Box>
         </Grid>
         <Grid item xs={12}>
-          <CurrencyExchangeComponent
+          <CurrencyExchange
             onSecondCurrencyChange={onSecondCurrencyChange}
             onFirstCurrencyChange={onFirstCurrencyChange}
             currencyFirstSignature={CurrencyFirst}
