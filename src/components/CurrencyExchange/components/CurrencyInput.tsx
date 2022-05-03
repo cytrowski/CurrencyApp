@@ -1,41 +1,44 @@
-import { ChangeEvent, useEffect, useState } from 'react';
-import { TextField, Typography } from '@mui/material';
+import { ChangeEvent, useCallback, useEffect, useState } from 'react';
+import { TextField } from '@mui/material';
 import { Box } from '@mui/system';
-import ENTranslations from '../../../helpers/translations/en';
 
 interface Props {
   currencyDescription: string;
-  isColumn?: boolean;
   onChange?: (value: number) => void;
   valueCalculated: number;
 }
 
 export const CurrencyInput = ({ onChange, currencyDescription, valueCalculated }: Props) => {
   const [val, setVal] = useState<string>('');
-  const { CurrencyLabel } = ENTranslations;
+  const [formatError, setFormatError] = useState(false);
 
-  const handleChange = (event: ChangeEvent<HTMLInputElement>): void => {
+  const handleChange = useCallback((event: ChangeEvent<HTMLInputElement>): void => {
     const value = event.target.value;
+
+    setFormatError(Number(value).toString() !== value);
+
     if (onChange) {
       onChange(Number(value));
     }
     setVal(value);
-  };
+  }, []);
 
   useEffect(() => {
     setVal(String(valueCalculated));
   }, [valueCalculated]);
 
   return (
-    <Box sx={{ display: 'flex', alignItems: 'center' }}>
-      <TextField
-        id='outlined-basic'
-        label={CurrencyLabel}
-        variant='standard'
-        onChange={handleChange}
-        value={val}
-      />
-      <Typography variant='body1'>{currencyDescription}</Typography>
-    </Box>
+    <>
+      <Box sx={{ display: 'flex', alignItems: 'center' }}>
+        <TextField
+          id='outlined-basic'
+          label={currencyDescription}
+          variant='standard'
+          onChange={handleChange}
+          value={val}
+          error={formatError}
+        />
+      </Box>
+    </>
   );
 };
