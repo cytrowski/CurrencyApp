@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { Container, Grid, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import { CurrencyExchangeComponent } from './components/CurrencyExchange/CurrencyExchangeComponent';
